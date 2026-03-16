@@ -1,0 +1,132 @@
+.mentor-dashboard {
+  width: 100%;
+  padding-bottom: 60px;
+}
+
+.mentor-container {
+  padding-top: 60px;
+}
+
+.mentor-title {
+  font-size: 2rem;
+  color: var(--primary-color);
+  margin-bottom: 8px;
+}
+
+.mentor-subtitle {
+  color: var(--text-light);
+  margin-bottom: 32px;
+}
+
+.mentor-error {
+  background: rgba(231, 76, 60, 0.1);
+  color: #c0392b;
+  padding: 12px;
+  border-radius: 8px;
+  margin-bottom: 24px;
+}
+
+.no-members-box {
+  background: var(--surface-color);
+  padding: 40px;
+  border-radius: var(--border-radius);
+  border: 1px dashed var(--glass-border);
+  text-align: center;
+  color: var(--text-dark);
+}
+
+.no-members-box .hint {
+  color: var(--text-light);
+  font-size: 0.9rem;
+  margin-top: 10px;
+}
+
+.members-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  gap: 24px;
+}
+
+.member-card {
+  background: var(--surface-color);
+  padding: 24px;
+  border-radius: var(--border-radius);
+  box-shadow: var(--shadow-sm);
+  border: 1px solid var(--glass-border);
+  transition: var(--transition);
+}
+
+.member-card:hover {
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-md);
+  border-color: var(--primary-light);
+}
+
+.member-name {
+  font-size: 1.25rem;
+  color: var(--text-dark);
+  margin-bottom: 16px;
+  padding-bottom: 12px;
+  border-bottom: 1px solid var(--bg-color);
+}
+
+.member-stats {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 20px;
+  background: rgba(211, 84, 0, 0.05);
+  padding: 12px;
+  border-radius: 8px;
+}
+
+.stat-label {
+  color: var(--text-light);
+  font-weight: 500;
+}
+
+.stat-value {
+  color: var(--primary-color);
+  font-weight: 700;
+  font-size: 1.1rem;
+}
+
+.recent-history h4 {
+  font-size: 0.95rem;
+  color: var(--text-light);
+  margin-bottom: 12px;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.history-list {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.history-item {
+  display: flex;
+  flex-direction: column;
+  background: var(--bg-color);
+  padding: 10px;
+  border-radius: 6px;
+  border-left: 3px solid var(--primary-color);
+}
+
+.history-video-title {
+  font-size: 0.9rem;
+  color: var(--text-dark);
+  font-weight: 500;
+  margin-bottom: 4px;
+  display: -webkit-box;
+  -webkit-line-clamp: 1;
+  line-clamp: 1;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+.history-video-category {
+  font-size: 0.75rem;
+  color: var(--primary-light);
+  font-weight: 600;
+}

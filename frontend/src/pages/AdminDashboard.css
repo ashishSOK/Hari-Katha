@@ -1,0 +1,135 @@
+.admin-page {
+  width: 100%;
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.admin-container {
+  max-width: 600px;
+  width: 100%;
+  padding-top: 100px;
+  padding-bottom: 60px;
+}
+
+.admin-title {
+  font-size: 2.5rem;
+  color: var(--text-dark);
+  margin-bottom: 8px;
+  text-align: center;
+  font-weight: 800;
+  letter-spacing: -1px;
+}
+
+.admin-subtitle {
+  color: var(--text-light);
+  margin-bottom: 40px;
+  text-align: center;
+  font-size: 1.1rem;
+}
+
+.admin-form {
+  background: var(--glass-bg);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  padding: 40px;
+  border-radius: var(--border-radius-lg);
+  box-shadow: var(--shadow-md);
+  border: 1px solid var(--glass-border);
+}
+
+.admin-msg {
+  padding: 16px;
+  border-radius: 8px;
+  margin-bottom: 24px;
+  text-align: center;
+  font-weight: 600;
+}
+
+.admin-msg.success {
+  background: rgba(46, 204, 113, 0.1);
+  color: #2ecc71;
+  border: 1px solid rgba(46, 204, 113, 0.2);
+}
+
+.admin-msg.error {
+  background: rgba(231, 76, 60, 0.1);
+  color: #e74c3c;
+  border: 1px solid rgba(231, 76, 60, 0.2);
+}
+
+.form-group {
+  margin-bottom: 24px;
+}
+
+.form-group label {
+  display: block;
+  margin-bottom: 8px;
+  color: var(--text-dark);
+  font-weight: 600;
+  font-size: 0.95rem;
+}
+
+.form-group input,
+.form-group select,
+.form-group textarea {
+  width: 100%;
+  padding: 14px 16px;
+  border: 1px solid var(--glass-border);
+  border-radius: 12px;
+  background: var(--surface-light);
+  color: var(--text-dark);
+  font-family: inherit;
+  font-size: 1rem;
+  transition: var(--transition);
+}
+
+.form-group textarea {
+  min-height: 120px;
+  resize: vertical;
+}
+
+.form-group input:focus,
+.form-group select:focus,
+.form-group textarea:focus {
+  outline: none;
+  border-color: var(--primary-color);
+  box-shadow: 0 0 0 3px var(--primary-glow);
+}
+
+.admin-btn {
+  width: 100%;
+  padding: 16px;
+  background: var(--primary-gradient);
+  color: white;
+  border-radius: 12px;
+  font-weight: 600;
+  font-size: 1.1rem;
+  letter-spacing: 0.5px;
+  transition: var(--transition);
+  box-shadow: 0 4px 16px var(--primary-glow);
+  margin-top: 10px;
+}
+
+.admin-btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 24px var(--primary-glow);
+}
+
+/* Mobile Responsiveness */
+@media (max-width: 768px) {
+  .admin-container {
+    padding-top: 80px;
+    padding-left: 16px;
+    padding-right: 16px;
+  }
+  
+  .admin-form {
+    padding: 24px 20px;
+  }
+  
+  .admin-title {
+    font-size: 2rem;
+  }
+}

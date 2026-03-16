@@ -1,0 +1,177 @@
+.navbar {
+  position: fixed;
+  top: 16px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: calc(100% - 48px);
+  max-width: 1200px;
+  background: var(--glass-bg);
+  backdrop-filter: blur(20px) saturate(180%);
+  -webkit-backdrop-filter: blur(20px) saturate(180%);
+  border: 1px solid var(--glass-border);
+  box-shadow: var(--shadow-sm);
+  z-index: 1000;
+  border-radius: var(--border-radius-lg);
+  padding: 12px 24px;
+  transition: var(--transition);
+}
+
+.nav-container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0;
+}
+
+.nav-logo {
+  font-family: var(--font-display);
+  font-size: 1.5rem;
+  font-weight: 800;
+  color: var(--text-dark);
+  letter-spacing: -0.5px;
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.nav-logo span {
+  background: var(--primary-gradient);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.nav-links {
+  display: flex;
+  align-items: center;
+  gap: 28px;
+}
+
+.nav-link {
+  font-size: 0.95rem;
+  font-weight: 500;
+  color: var(--text-light);
+  transition: var(--transition);
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  position: relative;
+}
+
+.nav-icon {
+  font-size: 1.1rem;
+}
+
+.nav-link:hover {
+  color: var(--text-dark);
+}
+
+.nav-link::after {
+  content: '';
+  position: absolute;
+  bottom: -4px;
+  left: 0;
+  width: 0%;
+  height: 2px;
+  background: var(--primary-gradient);
+  transition: var(--transition);
+  border-radius: 2px;
+}
+
+.nav-link:hover::after {
+  width: 100%;
+}
+
+.nav-btn-login {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 10px 24px;
+  background: var(--primary-gradient);
+  color: white;
+  border-radius: 100px;
+  font-weight: 600;
+  font-size: 0.95rem;
+  transition: var(--transition);
+  box-shadow: var(--shadow-glow);
+}
+
+.nav-btn-login:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 0 32px var(--primary-glow);
+}
+
+.nav-btn-login.logout {
+  background: rgba(255, 255, 255, 0.05);
+  color: var(--text-dark);
+  border: 1px solid var(--glass-border);
+  box-shadow: none;
+}
+
+.nav-btn-login.logout:hover {
+  background: rgba(231, 76, 60, 0.15);
+  color: #ff6b6b;
+  border-color: rgba(231, 76, 60, 0.3);
+  transform: translateY(-2px);
+}
+
+/* Mobile Responsiveness */
+@media (max-width: 768px) {
+  .navbar {
+    width: 100%;
+    top: 0;
+    border-radius: 0;
+    border-top: none;
+    border-left: none;
+    border-right: none;
+    padding: 12px 16px;
+  }
+
+  .nav-logo {
+    font-size: 1.2rem;
+  }
+
+  /* Make nav scrollable horizontally on mobile to preserve layout without hamburger menu */
+  .nav-container {
+    overflow-x: auto;
+    overflow-y: hidden;
+    gap: 16px;
+    padding-bottom: 4px;
+    /* Space for scrollbar if visible */
+    scrollbar-width: none;
+    justify-content: flex-start;
+    /* Ensure items don't get squished */
+  }
+
+  .nav-container::-webkit-scrollbar {
+    display: none;
+  }
+
+  .nav-logo {
+    flex-shrink: 0;
+    /* Prevent shrinking */
+  }
+
+  .nav-links {
+    gap: 16px;
+    margin-left: auto;
+    /* Push links to the right if there's space, but allow scroll if not */
+  }
+
+  .nav-link {
+    font-size: 0.85rem;
+    white-space: nowrap;
+  }
+
+  .nav-link span {
+    display: none;
+    /* Hide text, keep icons */
+  }
+
+  .nav-btn-login {
+    padding: 6px 12px;
+    font-size: 0.8rem;
+    white-space: nowrap;
+    flex-shrink: 0;
+  }
+}

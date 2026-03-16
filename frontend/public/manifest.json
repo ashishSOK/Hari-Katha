@@ -1,0 +1,22 @@
+{
+  "short_name": "Hari Katha",
+  "name": "Hari Katha",
+  "icons": [
+    {
+      "src": "logo-192x192.png",
+      "type": "image/png",
+      "sizes": "192x192",
+      "purpose": "any maskable"
+    },
+    {
+      "src": "logo-512x512.png",
+      "type": "image/png",
+      "sizes": "512x512",
+      "purpose": "any maskable"
+    }
+  ],
+  "start_url": ".",
+  "display": "standalone",
+  "theme_color": "#ff6b2b",
+  "background_color": "#050505"
+}
