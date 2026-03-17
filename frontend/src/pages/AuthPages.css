@@ -119,49 +119,73 @@
   text-decoration: underline;
 }
 
-/* Mobile Responsiveness */
+/* Lock scroll when auth page is open on mobile */
 @media (max-width: 768px) {
-  .auth-container {
-    padding-top: 30px;
-    padding-left: 16px;
-    padding-right: 16px;
-  }
-
-  .auth-card {
-    padding: 32px 24px;
-    border-radius: 20px;
-  }
-
-  .auth-title {
-    font-size: 1.8rem;
+  body.auth-no-scroll {
+    overflow: hidden;
+    height: 100vh;
   }
 }
 
-@media (max-width: 480px) {
+/* Mobile Responsiveness */
+@media (max-width: 768px) {
+  .auth-page {
+    height: 100dvh;
+    overflow: hidden;
+    align-items: center;
+  }
+
   .auth-container {
-    padding-top: 20px;
+    padding: 0 14px;
+    width: 100%;
+    margin-bottom: 120px;
   }
 
   .auth-card {
-    padding: 28px 20px;
+    padding: 22px 20px;
+    border-radius: 16px;
   }
 
   .auth-title {
-    font-size: 2rem;
+    font-size: 1.5rem;
+    margin-bottom: 4px;
   }
 
   .auth-subtitle {
-    font-size: 0.95rem;
-    margin-bottom: 24px;
+    font-size: 0.85rem;
+    margin-bottom: 12px;
+  }
+
+  .form-group {
+    margin-bottom: 11px;
+  }
+
+  .form-group label {
+    font-size: 0.83rem;
+    margin-bottom: 4px;
+  }
+
+  .form-group input,
+  .role-group select {
+    padding: 11px 12px;
+    font-size: 0.9rem;
+    border-radius: 9px;
   }
 
   .auth-btn {
-    padding: 14px;
-    font-size: 1.05rem;
+    padding: 12px;
+    font-size: 0.95rem;
+    margin-top: 6px;
   }
 
-  .icon-input {
-    padding: 14px 14px 14px 44px;
-    font-size: 0.95rem;
+  .auth-switch {
+    margin-top: 12px;
+    font-size: 0.82rem;
+  }
+
+  .auth-error {
+    padding: 7px;
+    font-size: 0.78rem;
+    margin-bottom: 8px;
   }
 }

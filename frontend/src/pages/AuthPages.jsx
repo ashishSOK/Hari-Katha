@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import Navbar from '../components/Navbar/Navbar';
@@ -14,6 +14,11 @@ const AuthPages = () => {
   });
   const [error, setError] = useState('');
   const navigate = useNavigate();
+
+  useEffect(() => {
+    document.body.classList.add('auth-no-scroll');
+    return () => document.body.classList.remove('auth-no-scroll');
+  }, []);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
