@@ -65,7 +65,7 @@
   font-size: 0.95rem;
 }
 
-.form-group input, 
+.form-group input,
 .role-group select {
   width: 100%;
   padding: 14px 16px;
@@ -126,12 +126,42 @@
     padding-left: 16px;
     padding-right: 16px;
   }
-  
+
   .auth-card {
     padding: 32px 24px;
+    border-radius: 20px;
   }
-  
+
   .auth-title {
     font-size: 1.8rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .auth-container {
+    padding-top: 20px;
+  }
+
+  .auth-card {
+    padding: 28px 20px;
+  }
+
+  .auth-title {
+    font-size: 2rem;
+  }
+
+  .auth-subtitle {
+    font-size: 0.95rem;
+    margin-bottom: 24px;
+  }
+
+  .auth-btn {
+    padding: 14px;
+    font-size: 1.05rem;
+  }
+
+  .icon-input {
+    padding: 14px 14px 14px 44px;
+    font-size: 0.95rem;
   }
 }

@@ -9,3 +9,9 @@
   padding-top: 80px;
   /* Space for the fixed navbar */
 }
+
+@media (max-width: 768px) {
+  .main-content {
+    padding-top: 60px; /* Reduced for mobile */
+  }
+}

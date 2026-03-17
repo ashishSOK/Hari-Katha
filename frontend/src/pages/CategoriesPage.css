@@ -3,7 +3,7 @@
   min-height: 100vh;
   padding-bottom: 90px;
   background: radial-gradient(circle at top right, rgba(218, 165, 32, 0.05) 0%, transparent 50%),
-              radial-gradient(circle at bottom left, rgba(211, 84, 0, 0.05) 0%, transparent 50%);
+    radial-gradient(circle at bottom left, rgba(211, 84, 0, 0.05) 0%, transparent 50%);
 }
 
 .categories-container {
@@ -71,13 +71,13 @@
 
 .add-category-btn-large {
   position: relative;
-  padding: 16px 32px;
+  padding: 14px 24px;
   border-radius: 100px;
   background: linear-gradient(135deg, rgba(212, 175, 55, 0.1) 0%, rgba(255, 107, 43, 0.1) 100%);
   color: #ffd700;
   border: 1px solid rgba(212, 175, 55, 0.4);
   font-weight: 700;
-  font-size: 1.1rem;
+  font-size: 1.05rem;
   font-family: var(--font-main);
   letter-spacing: 0.5px;
   cursor: pointer;
@@ -127,8 +127,15 @@
 }
 
 @keyframes slideInRight {
-  from { opacity: 0; transform: translateX(20px); }
-  to { opacity: 1; transform: translateX(0); }
+  from {
+    opacity: 0;
+    transform: translateX(20px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
 }
 
 .add-category-input-large {
@@ -136,8 +143,8 @@
   border: none;
   color: #fff8e7;
   font-family: inherit;
-  font-size: 1.05rem;
-  width: 240px;
+  font-size: 1rem;
+  width: 200px;
   outline: none;
 }
 
@@ -147,8 +154,8 @@
 
 .form-cancel-btn {
   padding: 10px 16px;
-  background: rgba(255,255,255,0.05);
-  border: 1px solid rgba(255,255,255,0.1);
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.1);
   border-radius: 100px;
   color: var(--text-light);
   cursor: pointer;
@@ -158,7 +165,7 @@
 }
 
 .form-cancel-btn:hover {
-  background: rgba(255,255,255,0.1);
+  background: rgba(255, 255, 255, 0.1);
   color: #fff;
 }
 
@@ -217,7 +224,7 @@
   content: '';
   flex: 1;
   height: 1px;
-  background: linear-gradient(to right, rgba(255,255,255,0.08) 0%, transparent 100%);
+  background: linear-gradient(to right, rgba(255, 255, 255, 0.08) 0%, transparent 100%);
 }
 
 .categories-grid {
@@ -228,8 +235,8 @@
 
 .category-card {
   position: relative;
-  padding: 32px 24px;
-  border-radius: 24px;
+  padding: 24px 20px;
+  border-radius: 20px;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -241,7 +248,7 @@
   transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
   cursor: pointer;
   overflow: hidden;
-  min-height: 140px;
+  min-height: 120px;
 }
 
 .category-card::before {
@@ -251,7 +258,7 @@
   left: 0;
   right: 0;
   bottom: 0;
-  background: radial-gradient(circle at center, rgba(255,255,255,0.1) 0%, transparent 70%);
+  background: radial-gradient(circle at center, rgba(255, 255, 255, 0.1) 0%, transparent 70%);
   opacity: 0;
   transition: opacity 0.4s ease;
   z-index: 1;
@@ -268,8 +275,8 @@
 }
 
 .category-icon {
-  font-size: 2rem;
-  margin-bottom: 16px;
+  font-size: 1.6rem;
+  margin-bottom: 12px;
   z-index: 2;
   opacity: 0.9;
   transition: transform 0.3s ease;
@@ -280,7 +287,7 @@
 }
 
 .category-name {
-  font-size: 1.25rem;
+  font-size: 1.1rem;
   font-weight: 700;
   z-index: 2;
   font-family: var(--font-display), sans-serif;
@@ -432,22 +439,26 @@
 /* Mobile Responsiveness */
 @media (max-width: 768px) {
   .categories-container {
-    padding-top: 40px;
-    padding-left: 16px;
-    padding-right: 16px;
+    padding-top: 24px;
+    padding-left: 14px;
+    padding-right: 14px;
   }
 
   .categories-header {
     flex-direction: column;
     align-items: flex-start;
-    gap: 32px;
-    margin-bottom: 40px;
+    gap: 20px;
+    margin-bottom: 28px;
   }
 
   .categories-title {
-    font-size: 2.4rem;
+    font-size: 2rem;
   }
-  
+
+  .categories-subtitle {
+    font-size: 0.9rem;
+  }
+
   .add-category-section {
     width: 100%;
   }
@@ -455,50 +466,55 @@
   .add-category-btn-large {
     width: 100%;
     justify-content: center;
+    padding: 12px 18px;
+    font-size: 0.95rem;
   }
 
   .add-category-form-large {
     flex-direction: column;
     align-items: stretch;
-    padding: 16px;
-    border-radius: 20px;
+    padding: 14px;
+    border-radius: 16px;
   }
-  
+
   .add-category-input-large {
     width: 100%;
-    padding: 12px;
-    background: rgba(0,0,0,0.2);
-    border-radius: 12px;
+    padding: 10px 12px;
+    background: rgba(0, 0, 0, 0.2);
+    border-radius: 10px;
     margin-bottom: 8px;
+    font-size: 0.95rem;
   }
 
   .add-category-form-large button {
     width: 100%;
     margin-bottom: 8px;
     justify-content: center;
+    padding: 11px;
+    font-size: 0.95rem;
   }
-  
+
   .form-cancel-btn {
     margin-bottom: 0 !important;
   }
 
   .categories-grid {
-    grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
-    gap: 16px;
+    grid-template-columns: repeat(auto-fill, minmax(130px, 1fr));
+    gap: 12px;
   }
-  
+
   .category-card {
-    padding: 24px 16px;
-    min-height: 120px;
-    border-radius: 20px;
+    padding: 18px 12px;
+    min-height: 100px;
+    border-radius: 16px;
   }
 
   .category-icon {
-    font-size: 1.6rem;
-    margin-bottom: 12px;
+    font-size: 1.4rem;
+    margin-bottom: 10px;
   }
 
   .category-name {
-    font-size: 1.05rem;
+    font-size: 0.92rem;
   }
 }

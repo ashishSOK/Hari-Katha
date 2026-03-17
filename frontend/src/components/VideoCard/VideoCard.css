@@ -87,14 +87,14 @@
 }
 
 .video-info {
-  padding: 20px;
+  padding: 14px 16px;
 }
 
 .video-title {
-  font-size: 1.1rem;
+  font-size: 1rem;
   color: var(--text-dark);
-  margin-bottom: 8px;
-  line-height: 1.4;
+  margin-bottom: 6px;
+  line-height: 1.35;
   font-weight: 700;
 
   /* Truncate to 2 lines */
@@ -110,13 +110,49 @@
 }
 
 .video-category {
-  font-size: 0.8rem;
+  font-size: 0.75rem;
   color: var(--primary-light);
   font-weight: 600;
-  letter-spacing: 0.5px;
+  letter-spacing: 0.4px;
   text-transform: uppercase;
   display: inline-block;
-  padding: 4px 10px;
+  padding: 3px 8px;
   background: rgba(255, 107, 43, 0.1);
-  border-radius: 20px;
+  border-radius: 12px;
+}
+
+/* Mobile Premium Polish */
+@media (max-width: 768px) {
+  .video-card {
+    border-radius: 16px;
+    border: 1px solid rgba(255, 255, 255, 0.08);
+  }
+
+  .video-info {
+    padding: 12px 14px;
+  }
+
+  .video-title {
+    font-size: 0.95rem;
+    line-height: 1.35;
+    margin-bottom: 6px;
+  }
+
+  .video-category {
+    font-size: 0.75rem;
+    padding: 3px 8px;
+  }
+
+  .duration-badge {
+    font-size: 0.75rem;
+    padding: 4px 8px;
+    border-radius: 6px;
+    bottom: 8px;
+    right: 8px;
+  }
+
+  .play-icon {
+    font-size: 2rem;
+    padding: 12px;
+  }
 }

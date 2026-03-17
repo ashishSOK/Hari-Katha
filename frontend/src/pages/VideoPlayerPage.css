@@ -48,7 +48,8 @@
   top: 0;
   left: 0;
   right: 0;
-  height: 80px; /* Covers the upper title/share button section */
+  height: 80px;
+  /* Covers the upper title/share button section */
   background: transparent;
   z-index: 5;
 }

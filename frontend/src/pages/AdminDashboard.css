@@ -5,7 +5,7 @@
   align-items: flex-start;
   justify-content: center;
   background: radial-gradient(circle at top left, rgba(211, 84, 0, 0.05) 0%, transparent 50%),
-              radial-gradient(circle at bottom right, rgba(218, 165, 32, 0.05) 0%, transparent 50%);
+    radial-gradient(circle at bottom right, rgba(218, 165, 32, 0.05) 0%, transparent 50%);
 }
 
 .admin-container {
@@ -41,8 +41,8 @@
   background: rgba(20, 20, 20, 0.6);
   backdrop-filter: blur(20px);
   -webkit-backdrop-filter: blur(20px);
-  padding: 40px;
-  border-radius: 24px;
+  padding: 32px;
+  border-radius: 20px;
   box-shadow: 0 16px 40px rgba(0, 0, 0, 0.4), inset 0 0 20px rgba(255, 107, 43, 0.05);
   border: 1px solid rgba(255, 107, 43, 0.15);
   position: relative;
@@ -84,7 +84,7 @@
 }
 
 .form-group {
-  margin-bottom: 28px;
+  margin-bottom: 24px;
 }
 
 .form-group label {
@@ -100,13 +100,13 @@
 .form-group select,
 .form-group textarea {
   width: 100%;
-  padding: 16px 18px;
+  padding: 14px 16px;
   border: 1px solid rgba(255, 255, 255, 0.1);
-  border-radius: 14px;
+  border-radius: 12px;
   background: rgba(0, 0, 0, 0.3);
   color: var(--text-dark);
   font-family: inherit;
-  font-size: 1.05rem;
+  font-size: 1rem;
   transition: all 0.3s ease;
 }
 
@@ -134,18 +134,18 @@
 }
 
 .form-group textarea {
-  min-height: 140px;
+  min-height: 110px;
   resize: vertical;
 }
 
 .admin-btn {
   width: 100%;
-  padding: 18px;
+  padding: 14px;
   background: linear-gradient(135deg, #ff6b2b 0%, #d35400 100%);
   color: white;
-  border-radius: 14px;
+  border-radius: 12px;
   font-weight: 700;
-  font-size: 1.15rem;
+  font-size: 1.05rem;
   letter-spacing: 0.5px;
   transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
   box-shadow: 0 8px 20px rgba(255, 107, 43, 0.3);
@@ -162,25 +162,52 @@
 /* Mobile Responsiveness */
 @media (max-width: 768px) {
   .admin-container {
-    padding-top: 40px;
-    padding-left: 16px;
-    padding-right: 16px;
+    padding-top: 24px;
+    padding-left: 14px;
+    padding-right: 14px;
   }
-  
-  .admin-form {
-    padding: 32px 24px;
-    border-radius: 20px;
-  }
-  
+
   .admin-title {
-    font-size: 2.4rem;
+    font-size: 2rem;
+    margin-bottom: 4px;
+  }
+
+  .admin-subtitle {
+    font-size: 0.95rem;
+    margin-bottom: 20px;
+  }
+
+  .admin-form {
+    padding: 22px 18px;
+    border-radius: 18px;
+  }
+
+  .form-group {
+    margin-bottom: 18px;
+  }
+
+  .form-group label {
+    font-size: 0.9rem;
+    margin-bottom: 7px;
   }
 
   .form-group input,
   .form-group select,
   .form-group textarea {
-    padding: 14px 16px;
+    padding: 12px 14px;
+    font-size: 0.95rem;
+    border-radius: 12px;
+  }
+
+  .form-group textarea {
+    min-height: 100px;
+  }
+
+  .admin-btn {
+    padding: 14px;
     font-size: 1rem;
+    border-radius: 12px;
+    margin-top: 10px;
   }
 }
 
@@ -250,7 +277,7 @@
   .admin-category-form {
     padding: 24px 20px;
   }
-  
+
   .admin-category-title {
     font-size: 1.5rem;
   }
