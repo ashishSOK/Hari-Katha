@@ -115,8 +115,23 @@
   transform: translateY(-2px);
 }
 
-/* Mobile Responsiveness */
+/* ══════════════════════════════════════════════
+   Mobile-only elements — hidden on desktop
+   ══════════════════════════════════════════════ */
+
+/* Mobile top-right profile strip: hidden on desktop */
+.mobile-top-right {
+  display: none;
+}
+
+/* Bottom tab bar: hidden on desktop */
+.bottom-nav {
+  display: none;
+}
+
+/* ── Mobile (<= 768px) ───────────────────────── */
 @media (max-width: 768px) {
+  /* Shrink top navbar to just logo + profile */
   .navbar {
     width: 100%;
     top: 0;
@@ -124,54 +139,224 @@
     border-top: none;
     border-left: none;
     border-right: none;
-    padding: 12px 16px;
+    padding: 10px 16px;
   }
 
   .nav-logo {
     font-size: 1.2rem;
-  }
-
-  /* Make nav scrollable horizontally on mobile to preserve layout without hamburger menu */
-  .nav-container {
-    overflow-x: auto;
-    overflow-y: hidden;
-    gap: 16px;
-    padding-bottom: 4px;
-    /* Space for scrollbar if visible */
-    scrollbar-width: none;
-    justify-content: flex-start;
-    /* Ensure items don't get squished */
-  }
-
-  .nav-container::-webkit-scrollbar {
-    display: none;
-  }
-
-  .nav-logo {
     flex-shrink: 0;
-    /* Prevent shrinking */
   }
 
+  /* Hide all nav links from the top bar on mobile */
   .nav-links {
-    gap: 16px;
-    margin-left: auto;
-    /* Push links to the right if there's space, but allow scroll if not */
-  }
-
-  .nav-link {
-    font-size: 0.85rem;
-    white-space: nowrap;
-  }
-
-  .nav-link span {
     display: none;
-    /* Hide text, keep icons */
   }
 
-  .nav-btn-login {
-    padding: 6px 12px;
+  /* Show mobile profile/logout pill */
+  .mobile-top-right {
+    display: flex;
+    align-items: center;
+    margin-left: auto;
+  }
+
+  .mobile-logout-btn {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    background: rgba(255, 255, 255, 0.06);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 100px;
+    padding: 5px 12px 5px 8px;
+    color: var(--text-dark);
+    cursor: pointer;
+    font-family: var(--font-main);
+    transition: background 0.2s;
+  }
+
+  .mobile-logout-btn:hover {
+    background: rgba(255, 255, 255, 0.1);
+  }
+
+  .mobile-avatar {
+    font-size: 1.2rem;
+    color: #ff6b2b;
+  }
+
+  .mobile-username {
     font-size: 0.8rem;
+    font-weight: 600;
+    max-width: 80px;
+    overflow: hidden;
+    text-overflow: ellipsis;
     white-space: nowrap;
-    flex-shrink: 0;
+  }
+
+  .dropdown-arrow {
+    font-size: 0.55rem;
+    color: rgba(255, 255, 255, 0.4);
+    margin-left: 2px;
+  }
+
+  .mobile-login-btn {
+    padding: 6px 14px;
+    font-size: 0.82rem;
+  }
+
+  /* Dropdown wrapper */
+  .profile-dropdown-wrapper {
+    position: relative;
+  }
+
+  /* Dropdown card */
+  .profile-dropdown {
+    position: absolute;
+    top: calc(100% + 10px);
+    right: 0;
+    min-width: 160px;
+    background: rgba(18, 18, 18, 0.97);
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 14px;
+    padding: 8px;
+    box-shadow: 0 12px 32px rgba(0, 0, 0, 0.6);
+    animation: dropIn 0.18s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+    z-index: 2000;
+  }
+
+  @keyframes dropIn {
+    from { opacity: 0; transform: translateY(-6px) scale(0.97); }
+    to   { opacity: 1; transform: translateY(0) scale(1); }
+  }
+
+  /* User info row at top of dropdown */
+  .dropdown-info {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 6px 10px 10px;
+    color: var(--text-light);
+    font-size: 0.82rem;
+    font-weight: 600;
+  }
+
+  .dropdown-avatar {
+    font-size: 1.3rem;
+    color: #ff6b2b;
+  }
+
+  .dropdown-divider {
+    border: none;
+    border-top: 1px solid rgba(255, 255, 255, 0.08);
+    margin: 0 4px 6px;
+  }
+
+  /* Dropdown menu item */
+  .dropdown-item {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    width: 100%;
+    padding: 9px 12px;
+    border-radius: 9px;
+    font-size: 0.85rem;
+    font-weight: 500;
+    color: var(--text-dark);
+    background: none;
+    border: none;
+    cursor: pointer;
+    font-family: var(--font-main);
+    transition: background 0.15s;
+    text-align: left;
+  }
+
+  .logout-item:hover {
+    background: rgba(231, 76, 60, 0.15);
+    color: #ff6b6b;
+  }
+
+
+  /* ── Bottom Tab Bar ── */
+  .bottom-nav {
+    display: flex;
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    z-index: 1000;
+    align-items: stretch;
+    justify-content: space-around;
+    background: rgba(8, 8, 8, 0.94);
+    backdrop-filter: blur(24px) saturate(180%);
+    -webkit-backdrop-filter: blur(24px) saturate(180%);
+    border-top: 1px solid rgba(255, 255, 255, 0.08);
+    height: 62px;
+    padding-bottom: env(safe-area-inset-bottom, 0px);
+    box-shadow: 0 -8px 32px rgba(0, 0, 0, 0.55);
+  }
+
+  .tab-item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 3px;
+    flex: 1;
+    padding: 8px 4px 10px;
+    color: rgba(255, 255, 255, 0.38);
+    text-decoration: none;
+    border: none;
+    background: none;
+    font-family: var(--font-main);
+    cursor: pointer;
+    transition: color 0.2s ease, transform 0.15s ease;
+    position: relative;
+  }
+
+  .tab-item:active {
+    transform: scale(0.92);
+  }
+
+  .tab-icon {
+    font-size: 1.3rem;
+    display: flex;
+    align-items: center;
+    transition: filter 0.2s ease, transform 0.2s ease;
+  }
+
+  .tab-label {
+    font-size: 0.6rem;
+    font-weight: 600;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+  }
+
+  /* Active tab */
+  .tab-item.active {
+    color: #ff6b2b;
+  }
+
+  .tab-item.active .tab-icon {
+    filter: drop-shadow(0 0 7px rgba(255, 107, 43, 0.65));
+    transform: scale(1.18) translateY(-1px);
+  }
+
+  /* Active dot indicator */
+  .tab-item.active::after {
+    content: '';
+    position: absolute;
+    bottom: 5px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 4px;
+    height: 4px;
+    border-radius: 50%;
+    background: #ff6b2b;
+    box-shadow: 0 0 8px rgba(255, 107, 43, 0.9);
+  }
+
+  /* Add bottom padding so page content isn't hidden by the tab bar */
+  body {
+    padding-bottom: 62px;
   }
 }

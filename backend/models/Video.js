@@ -15,8 +15,7 @@ const videoSchema = new mongoose.Schema({
   },
   category: {
     type: String,
-    enum: ['Kirtan', 'Vaishnava Songs', 'Lectures', 'Bhagavad Gita', 'Other'],
-    default: 'Other',
+    required: true,
   },
   thumbnail: {
     type: String,

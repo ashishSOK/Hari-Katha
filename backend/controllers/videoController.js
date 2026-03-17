@@ -1,4 +1,5 @@
 const Video = require('../models/Video');
+const Category = require('../models/Category');
 const { extractYouTubeId } = require('../utils/youtubeParser');
 
 // @desc    Get all videos
@@ -8,7 +9,7 @@ const getVideos = async (req, res) => {
   try {
     const category = req.query.category;
     const filter = category && category !== 'All' ? { category } : {};
-    
+
     const videos = await Video.find(filter).sort({ createdAt: -1 });
     res.json(videos);
   } catch (error) {
@@ -37,7 +38,7 @@ const getVideoById = async (req, res) => {
 const createVideo = async (req, res) => {
   try {
     const { title, url, description, category, thumbnail, duration } = req.body;
-    
+
     const youtubeId = extractYouTubeId(url);
     if (!youtubeId) {
       return res.status(400).json({ message: 'Invalid YouTube URL' });
@@ -90,9 +91,78 @@ const deleteVideo = async (req, res) => {
   }
 };
 
+// @desc    Get all unique video categories
+// @route   GET /api/videos/categories
+// @access  Public
+const getUniqueCategories = async (req, res) => {
+  try {
+    // 1. Get dynamically used categories from videos
+    const videoCategories = await Video.distinct('category');
+    // 2. Get saved standalone categories
+    const savedCategoriesObj = await Category.find({}, 'name');
+    const savedCategories = savedCategoriesObj.map(c => c.name);
+
+    // Merge and remove duplicates, ensuring system categories are always present
+    const SYSTEM_CATEGORIES = ['Kirtan', 'Vaishnava Songs', 'Lectures', 'Bhagavad Gita', 'Other'];
+    const allCategories = [...new Set([...SYSTEM_CATEGORIES, ...videoCategories, ...savedCategories])].filter(Boolean).sort();
+    
+    // Ensure "Other" isn't strictly the only default, just return the merged list
+    res.json(allCategories);
+  } catch (error) {
+    res.status(500).json({ message: error.message });
+  }
+};
+
+// @desc    Create a new standalone category
+// @route   POST /api/videos/categories
+// @access  Private/Admin or Mentor
+const createCategory = async (req, res) => {
+  try {
+    const { name } = req.body;
+    if (!name) return res.status(400).json({ message: 'Category name is required' });
+
+    const existing = await Category.findOne({ name: { $regex: new RegExp(`^${name}$`, 'i') } });
+    if (existing) {
+      return res.status(400).json({ message: 'Category already exists' });
+    }
+
+    const category = await Category.create({ name });
+    res.status(201).json(category);
+  } catch (error) {
+    res.status(500).json({ message: error.message });
+  }
+};
+
+// @desc    Delete a custom category
+// @route   DELETE /api/videos/categories/:name
+// @access  Private/Admin or Mentor
+const deleteCategory = async (req, res) => {
+  try {
+    const { name } = req.params;
+    if (!name) return res.status(400).json({ message: 'Category name is required' });
+
+    const SYSTEM_CATEGORIES = ['Kirtan', 'Vaishnava Songs', 'Lectures', 'Bhagavad Gita', 'Other'];
+    if (SYSTEM_CATEGORIES.includes(name)) {
+      return res.status(400).json({ message: 'Cannot delete system categories' });
+    }
+
+    const deleted = await Category.findOneAndDelete({ name: { $regex: new RegExp(`^${name}$`, 'i') } });
+    if (!deleted) {
+      return res.status(404).json({ message: 'Category not found' });
+    }
+
+    res.json({ message: 'Category removed successfully' });
+  } catch (error) {
+    res.status(500).json({ message: error.message });
+  }
+};
+
 module.exports = {
   getVideos,
   getVideoById,
   createVideo,
   deleteVideo,
+  getUniqueCategories,
+  createCategory,
+  deleteCategory,
 };

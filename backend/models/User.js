@@ -32,6 +32,21 @@ const userSchema = new mongoose.Schema({
     type: mongoose.Schema.Types.ObjectId,
     ref: 'Video',
   }],
+  notes: [{
+    videoId: {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: 'Video',
+      required: true
+    },
+    text: {
+      type: String,
+      default: ''
+    },
+    updatedAt: {
+      type: Date,
+      default: Date.now
+    }
+  }],
 }, { timestamps: true });
 
 module.exports = mongoose.model('User', userSchema);

@@ -1,6 +1,6 @@
 const express = require('express');
 const router = express.Router();
-const { getWatchHistory, addToWatchHistory, getBookmarks, toggleBookmark, assignMentor, getMentorMembers } = require('../controllers/userController');
+const { getWatchHistory, addToWatchHistory, getBookmarks, toggleBookmark, assignMentor, getMentorMembers, saveNote, getNote } = require('../controllers/userController');
 const { protect } = require('../utils/authMiddleware');
 
 router.route('/history')
@@ -20,5 +20,9 @@ router.route('/member/assign')
 
 router.route('/mentor/members')
   .get(protect, getMentorMembers);
+
+router.route('/notes/:videoId')
+  .get(protect, getNote)
+  .post(protect, saveNote);
 
 module.exports = router;

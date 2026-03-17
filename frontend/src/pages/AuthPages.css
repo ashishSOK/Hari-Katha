@@ -9,7 +9,7 @@
 .auth-container {
   max-width: 500px;
   width: 100%;
-  padding-top: 80px;
+  padding-top: 40px;
   padding-bottom: 40px;
 }
 
@@ -122,7 +122,7 @@
 /* Mobile Responsiveness */
 @media (max-width: 768px) {
   .auth-container {
-    padding-top: 60px;
+    padding-top: 30px;
     padding-left: 16px;
     padding-right: 16px;
   }

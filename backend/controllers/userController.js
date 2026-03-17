@@ -113,6 +113,62 @@ const getMentorMembers = async (req, res) => {
   }
 };
 
+// @desc    Get note for a specific video
+// @route   GET /api/users/notes/:videoId
+// @access  Private
+const getNote = async (req, res) => {
+  try {
+    const user = await User.findById(req.user._id);
+    if (!user) {
+      return res.status(404).json({ message: 'User not found' });
+    }
+
+    const videoId = req.params.videoId;
+    const notesArray = user.notes || [];
+    const note = notesArray.find((n) => n.videoId.toString() === videoId);
+
+    if (note) {
+      res.json({ text: note.text });
+    } else {
+      res.json({ text: '' });
+    }
+  } catch (error) {
+    res.status(500).json({ message: error.message });
+  }
+};
+
+// @desc    Save or update note for a specific video
+// @route   POST /api/users/notes/:videoId
+// @access  Private
+const saveNote = async (req, res) => {
+  try {
+    const user = await User.findById(req.user._id);
+    if (!user) {
+      return res.status(404).json({ message: 'User not found' });
+    }
+
+    const videoId = req.params.videoId;
+    const { text } = req.body;
+
+    user.notes = user.notes || [];
+    const existingNoteIndex = user.notes.findIndex((n) => n.videoId.toString() === videoId);
+
+    if (existingNoteIndex !== -1) {
+      // Update existing
+      user.notes[existingNoteIndex].text = text;
+      user.notes[existingNoteIndex].updatedAt = Date.now();
+    } else {
+      // Add new
+      user.notes.push({ videoId, text });
+    }
+
+    await user.save();
+    res.json({ message: 'Note saved successfully' });
+  } catch (error) {
+    res.status(500).json({ message: error.message });
+  }
+};
+
 module.exports = {
   getWatchHistory,
   addToWatchHistory,
@@ -120,4 +176,6 @@ module.exports = {
   toggleBookmark,
   assignMentor,
   getMentorMembers,
+  saveNote,
+  getNote,
 };

@@ -6,7 +6,7 @@
   display: grid;
   grid-template-columns: 1fr 340px;
   gap: 32px;
-  padding-top: 32px;
+  padding-top: 16px;
   padding-bottom: 60px;
 }
 
@@ -25,7 +25,8 @@
 .iframe-wrapper {
   position: relative;
   width: 100%;
-  padding-top: 56.25%; /* 16:9 Aspect Ratio */
+  padding-top: 56.25%;
+  /* 16:9 Aspect Ratio */
   background: #000;
   border-radius: var(--border-radius);
   overflow: hidden;
@@ -40,6 +41,18 @@
   height: 100%;
 }
 
+/* Transparent overlay to block clicks on YouTube top bar (Title, Avatar, Share, Watch Later) */
+.iframe-wrapper::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 80px; /* Covers the upper title/share button section */
+  background: transparent;
+  z-index: 5;
+}
+
 .video-details {
   background: var(--surface-color);
   padding: 24px;
@@ -50,7 +63,10 @@
 
 .login-prompt-overlay {
   position: absolute;
-  top: 0; left: 0; width: 100%; height: 100%;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -62,7 +78,10 @@
 
 .blurred-bg {
   position: absolute;
-  top: -10%; left: -10%; width: 120%; height: 120%;
+  top: -10%;
+  left: -10%;
+  width: 120%;
+  height: 120%;
   object-fit: cover;
   filter: blur(20px) brightness(0.3);
   z-index: 1;
@@ -253,48 +272,48 @@
     padding-top: 16px;
     gap: 20px;
   }
-  
+
   .video-details {
     padding: 16px;
   }
-  
+
   .video-player-title {
     font-size: 1.2rem;
   }
-  
+
   .title-row {
     flex-direction: column;
     gap: 12px;
   }
-  
+
   .bookmark-btn {
     width: 100%;
     margin-bottom: 8px;
   }
-  
+
   .category-and-actions {
     flex-direction: column;
     align-items: flex-start;
     gap: 12px;
   }
-  
+
   .delete-video-btn {
     width: 100%;
   }
-  
+
   .notes-textarea {
     min-height: 100px;
   }
-  
+
   .login-prompt-content {
     padding: 24px;
     max-width: 90%;
   }
-  
+
   .login-prompt-content h2 {
     font-size: 1.4rem;
   }
-  
+
   .login-btn-large {
     padding: 10px 24px;
     font-size: 1rem;

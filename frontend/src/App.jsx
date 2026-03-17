@@ -7,6 +7,7 @@ import MentorDashboard from './pages/MentorDashboard';
 import AuthPages from './pages/AuthPages';
 import UserHistory from './pages/UserHistory';
 import UserBookmarks from './pages/UserBookmarks';
+import CategoriesPage from './pages/CategoriesPage';
 import './App.css';
 
 function App() {
@@ -23,6 +24,7 @@ function App() {
             <Route path="/register" element={<AuthPages />} />
             <Route path="/bookmarks" element={<UserBookmarks />} />
             <Route path="/history" element={<UserHistory />} />
+            <Route path="/categories" element={<CategoriesPage />} />
           </Routes>
         </main>
       </div>
