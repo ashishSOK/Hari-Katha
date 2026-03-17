@@ -142,6 +142,7 @@ const VideoPlayerPage = () => {
   // ── Data fetching ────────────────────────────────────────────────────────
   useEffect(() => {
     const fetchVideoAndRelated = async () => {
+      window.scrollTo(0, 0);
       setLoading(true);
       try {
         const apiUrl = import.meta.env.VITE_API_URL || 'http://localhost:5001';
