@@ -46,6 +46,8 @@ const VideoPlayerPage = () => {
   const userInfo = userInfoStr ? JSON.parse(userInfoStr) : null;
   const token = localStorage.getItem('token');
 
+  const lastInteractionTimeRef = useRef(0);
+
   // ── Listen for YouTube player state messages ─────────────────────────────
   useEffect(() => {
     const onMessage = (e) => {
@@ -57,8 +59,11 @@ const VideoPlayerPage = () => {
           if (data.info.volume !== undefined) setVolume(data.info.volume / 100);
           if (data.info.muted !== undefined) setIsMuted(data.info.muted);
           if (data.info.playerState !== undefined) {
-            // 1 = playing, anything else = paused/ended/buffering
-            setIsPlaying(data.info.playerState === 1);
+            // Ignore playerState updates from polling for 1 second after user interaction to prevent UI flicker
+            if (Date.now() - lastInteractionTimeRef.current > 1000) {
+              // 1 = playing, anything else = paused/ended/buffering
+              setIsPlaying(data.info.playerState === 1);
+            }
           }
         }
       } catch (_) { /* not a JSON message */ }
@@ -97,6 +102,7 @@ const VideoPlayerPage = () => {
 
   // ── Custom control handlers ──────────────────────────────────────────────
   const handlePlayPause = useCallback(() => {
+    lastInteractionTimeRef.current = Date.now();
     if (isPlaying) {
       ytCmd(iframeRef.current, 'pauseVideo');
       setIsPlaying(false);
@@ -258,7 +264,7 @@ const VideoPlayerPage = () => {
             {showLoginPrompt ? (
               <div className="login-prompt-overlay">
                 <img
-                  src={video.thumbnail || `https://img.youtube.com/vi/${video.youtubeId}/hqdefault.jpg`}
+                  src={video.thumbnail || (video.youtubeId ? `https://img.youtube.com/vi/${video.youtubeId}/hqdefault.jpg` : '/default-thumbnail.jpg')}
                   alt="Blurred thumbnail"
                   className="blurred-bg"
                 />
@@ -279,6 +285,12 @@ const VideoPlayerPage = () => {
                   allowFullScreen
                   onLoad={handleIframeLoad}
                 ></iframe>
+                {/* Overlay to allow tapping the video screen to play/pause without clicking YouTube links */}
+                <div
+                  className="tap-to-play-overlay"
+                  onClick={handlePlayPause}
+                  style={{ position: 'absolute', top: 0, left: 0, width: '100%', height: '100%', zIndex: 10, cursor: 'pointer' }}
+                />
                 <YoutubeCustomControls
                   isPlaying={isPlaying}
                   currentTime={currentTime}
@@ -329,7 +341,7 @@ const VideoPlayerPage = () => {
                 <h3 style={{ margin: 0 }}>Spiritual Notes</h3>
                 {noteMessage && <span style={{ color: 'var(--primary-color)', fontSize: '0.85rem' }}>{noteMessage}</span>}
               </div>
-              <textarea 
+              <textarea
                 placeholder={token ? "Jot down your realizations here..." : "Login to save your spiritual notes..."}
                 className="notes-textarea"
                 value={noteText}
@@ -337,12 +349,12 @@ const VideoPlayerPage = () => {
                 disabled={!token}
               ></textarea>
               {token && (
-                <button 
-                  onClick={handleSaveNote} 
+                <button
+                  onClick={handleSaveNote}
                   disabled={noteSaving}
-                  style={{ 
-                    marginTop: '12px', padding: '8px 16px', background: 'var(--primary-gradient)', 
-                    color: 'white', borderRadius: '8px', border: 'none', cursor: 'pointer', float: 'right' 
+                  style={{
+                    marginTop: '12px', padding: '8px 16px', background: 'var(--primary-gradient)',
+                    color: 'white', borderRadius: '8px', border: 'none', cursor: 'pointer', float: 'right'
                   }}
                 >
                   {noteSaving ? 'Saving...' : 'Save Note'}

@@ -7,18 +7,18 @@ const VideoCard = ({ video }) => {
   return (
     <Link to={`/watch/${video._id}`} className="video-card fade-in">
       <div className="thumbnail-container">
-        <img 
-          src={video.thumbnail || (video.youtubeId ? `https://img.youtube.com/vi/${video.youtubeId}/hqdefault.jpg` : 'https://placehold.co/480x270/1a1a2e/e87c3e?text=Hari+Katha')} 
-          alt={video.title} 
+        <img
+          src={video.thumbnail || (video.youtubeId ? `https://img.youtube.com/vi/${video.youtubeId}/hqdefault.jpg` : '/default-thumbnail.jpg')}
+          alt={video.title}
           className="thumbnail"
           onLoad={(e) => {
             // YouTube returns a 120×90 white image when no thumbnail exists
-            if (e.target.naturalWidth === 120) {
-              e.target.src = 'https://placehold.co/480x270/1a1a2e/e87c3e?text=Hari+Katha';
+            if (e.target.naturalWidth === 120 || e.target.naturalWidth <= 120) {
+              e.target.src = '/default-thumbnail.jpg';
             }
           }}
           onError={(e) => {
-            e.target.src = 'https://placehold.co/480x270/1a1a2e/e87c3e?text=Hari+Katha';
+            e.target.src = '/default-thumbnail.jpg';
           }}
         />
         <div className="duration-badge">{video.duration || '0:00'}</div>
