@@ -260,7 +260,7 @@ const VideoPlayerPage = () => {
       <Navbar />
       <div className="container player-container">
         <div className="main-player-section fade-in">
-          <div className="iframe-wrapper">
+          <div className={`iframe-wrapper ${!isPlaying ? 'is-paused' : ''}`}>
             {showLoginPrompt ? (
               <div className="login-prompt-overlay">
                 <img
@@ -285,6 +285,26 @@ const VideoPlayerPage = () => {
                   allowFullScreen
                   onLoad={handleIframeLoad}
                 ></iframe>
+                
+                {/* Custom Pause Screen Overlay to completely hide YouTube's related videos grid */}
+                {!isPlaying && (
+                  <div className="custom-pause-screen fade-in">
+                    <img 
+                      src={video.thumbnail || (video.youtubeId ? `https://img.youtube.com/vi/${video.youtubeId}/hqdefault.jpg` : '/default-thumbnail.jpg')}
+                      className="pause-bg-thumb" 
+                      alt="pause background" 
+                    />
+                    <div className="pause-overlay-content">
+                      <button className="big-resume-btn" onClick={handlePlayPause} aria-label="Resume Video">
+                        <svg viewBox="0 0 24 24" fill="currentColor" width="36" height="36">
+                          <polygon points="5,3 19,12 5,21" />
+                        </svg>
+                      </button>
+                      <h3 className="pause-screen-title">{video.title}</h3>
+                    </div>
+                  </div>
+                )}
+
                 {/* Overlay to allow tapping the video screen to play/pause without clicking YouTube links */}
                 <div
                   className="tap-to-play-overlay"

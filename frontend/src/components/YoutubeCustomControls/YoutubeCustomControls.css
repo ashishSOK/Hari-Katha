@@ -8,22 +8,23 @@
   left: 0;
   right: 0;
   z-index: 20;
-  padding: 0 12px 10px;
+  padding: 16px 16px 36px;
   background: linear-gradient(to top, rgba(0, 0, 0, 0.85) 0%, transparent 100%);
   opacity: 0;
   transition: opacity 0.25s ease;
   pointer-events: none;
 }
 
-/* Show controls on parent hover */
+/* Show controls on parent hover or when paused */
 .iframe-wrapper:hover .ycc-bar,
-.ycc-bar:hover {
+.ycc-bar:hover,
+.iframe-wrapper.is-paused .ycc-bar {
   opacity: 1;
   pointer-events: all;
 }
 
-/* Always show controls on touch devices (no hover) */
-@media (hover: none) and (pointer: coarse) {
+/* Always show controls on tablets/mobile (landscape & portrait) */
+@media (max-width: 1024px), (hover: none) and (pointer: coarse) {
   .ycc-bar {
     opacity: 1;
     pointer-events: all;
