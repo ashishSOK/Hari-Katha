@@ -7,8 +7,10 @@ const { extractYouTubeId } = require('../utils/youtubeParser');
 // @access  Public
 const getVideos = async (req, res) => {
   try {
-    const category = req.query.category;
-    const filter = category && category !== 'All' ? { category } : {};
+    const { category, mentorId } = req.query;
+    const filter = {};
+    if (category && category !== 'All') filter.category = category;
+    if (mentorId) filter.uploadedBy = mentorId;
 
     const videos = await Video.find(filter).sort({ createdAt: -1 });
     res.json(videos);

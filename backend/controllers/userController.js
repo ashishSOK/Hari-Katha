@@ -1,6 +1,18 @@
 const User = require('../models/User');
 const Video = require('../models/Video');
 
+// @desc    Get all mentors (public, for signup dropdown)
+// @route   GET /api/users/mentors
+// @access  Public
+const getMentors = async (req, res) => {
+  try {
+    const mentors = await User.find({ role: 'mentor' }).select('_id username');
+    res.json(mentors);
+  } catch (error) {
+    res.status(500).json({ message: error.message });
+  }
+};
+
 // @desc    Get user watch history
 // @route   GET /api/users/history
 // @access  Private
@@ -170,6 +182,7 @@ const saveNote = async (req, res) => {
 };
 
 module.exports = {
+  getMentors,
   getWatchHistory,
   addToWatchHistory,
   getBookmarks,

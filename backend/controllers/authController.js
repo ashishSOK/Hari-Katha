@@ -8,7 +8,7 @@ const generateToken = (id) => {
 
 const registerUser = async (req, res) => {
   try {
-    const { username, password, role, isMentorKey } = req.body;
+    const { username, password, role, isMentorKey, mentorId } = req.body;
 
     const userExists = await User.findOne({ username });
 
@@ -16,16 +16,24 @@ const registerUser = async (req, res) => {
       return res.status(400).json({ message: 'User already exists' });
     }
 
-    // Determine actual role (simple secret key logic for creating a mentor account securely)
+    // Determine actual role
     let finalRole = 'member';
     if (role === 'mentor') {
-      // In production, you'd check a secure secret or require admin approval. 
-      // Using a simple secret "mentor123" for demonstration purposes.
       if (isMentorKey === 'mentor123') {
         finalRole = 'mentor';
       } else {
         return res.status(401).json({ message: 'Invalid Mentor Authorization Key' });
       }
+    }
+
+    // Validate mentorId if provided (members linking to a mentor at signup)
+    let finalMentorId = null;
+    if (finalRole === 'member' && mentorId) {
+      const mentor = await User.findOne({ _id: mentorId, role: 'mentor' });
+      if (!mentor) {
+        return res.status(404).json({ message: 'Selected mentor not found' });
+      }
+      finalMentorId = mentor._id;
     }
 
     const salt = await bcrypt.genSalt(10);
@@ -35,6 +43,7 @@ const registerUser = async (req, res) => {
       username,
       password: hashedPassword,
       role: finalRole,
+      mentorId: finalMentorId,
     });
 
     if (user) {
@@ -43,6 +52,7 @@ const registerUser = async (req, res) => {
         username: user.username,
         role: user.role,
         isAdmin: user.isAdmin,
+        mentorId: user.mentorId,
         token: generateToken(user._id),
       });
     } else {

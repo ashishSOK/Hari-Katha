@@ -10,10 +10,23 @@ const AuthPages = () => {
     username: '', 
     password: '',
     role: 'member',
-    isMentorKey: ''
+    isMentorKey: '',
+    mentorId: ''
   });
+  const [mentors, setMentors] = useState([]);
   const [error, setError] = useState('');
   const navigate = useNavigate();
+
+  const apiUrl = import.meta.env.VITE_API_URL || 'http://localhost:5001';
+
+  // Fetch mentor list when switching to signup mode
+  useEffect(() => {
+    if (!isLogin) {
+      axios.get(`${apiUrl}/api/users/mentors`)
+        .then(({ data }) => setMentors(data))
+        .catch(() => setMentors([]));
+    }
+  }, [isLogin]);
 
   useEffect(() => {
     document.body.classList.add('auth-no-scroll');
@@ -23,10 +36,15 @@ const AuthPages = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     setError('');
-    
+
+    // Require mentor selection for members during signup
+    if (!isLogin && formData.role === 'member' && !formData.mentorId) {
+      setError('Please select a mentor to continue.');
+      return;
+    }
+
     try {
       const endpoint = isLogin ? '/api/auth/login' : '/api/auth/register';
-      const apiUrl = import.meta.env.VITE_API_URL || 'http://localhost:5001';
       const { data } = await axios.post(`${apiUrl}${endpoint}`, formData);
       
       localStorage.setItem('token', data.token);
@@ -58,7 +76,7 @@ const AuthPages = () => {
                 <label>I am joining as a:</label>
                 <select 
                   value={formData.role}
-                  onChange={(e) => setFormData({...formData, role: e.target.value})}
+                  onChange={(e) => setFormData({...formData, role: e.target.value, mentorId: ''})}
                   className="role-select"
                 >
                   <option value="member">Spiritual Seeker (Member)</option>
@@ -67,6 +85,7 @@ const AuthPages = () => {
               </div>
             )}
 
+            {/* Mentor key for mentor signup */}
             {!isLogin && formData.role === 'mentor' && (
               <div className="form-group">
                 <label>Mentor Authorization Key</label>
@@ -77,6 +96,29 @@ const AuthPages = () => {
                   placeholder="Secret key (e.g. mentor123)"
                   required
                 />
+              </div>
+            )}
+
+            {/* Mentor selection dropdown for member signup */}
+            {!isLogin && formData.role === 'member' && (
+              <div className="form-group">
+                <label>Select Your Mentor <span style={{color:'var(--accent, #e74c3c)'}}>*</span></label>
+                <select
+                  value={formData.mentorId}
+                  onChange={(e) => setFormData({...formData, mentorId: e.target.value})}
+                  className="role-select"
+                  required
+                >
+                  <option value="">-- Choose a mentor --</option>
+                  {mentors.map(m => (
+                    <option key={m._id} value={m._id}>{m.username}</option>
+                  ))}
+                </select>
+                {mentors.length === 0 && (
+                  <p style={{fontSize:'0.78rem', color:'#888', marginTop:'4px'}}>
+                    No mentors available yet.
+                  </p>
+                )}
               </div>
             )}
 
@@ -107,7 +149,7 @@ const AuthPages = () => {
           
           <div className="auth-toggle">
             {isLogin ? "Don't have an account? " : "Already have an account? "}
-            <span onClick={() => setIsLogin(!isLogin)}>
+            <span onClick={() => { setIsLogin(!isLogin); setError(''); }}>
               {isLogin ? 'Sign up' : 'Login'}
             </span>
           </div>

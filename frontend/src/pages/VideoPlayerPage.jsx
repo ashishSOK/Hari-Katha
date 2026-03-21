@@ -117,6 +117,18 @@ const VideoPlayerPage = () => {
     setCurrentTime(time);
   }, []);
 
+  const handleRewind = useCallback(() => {
+    const newTime = Math.max(0, currentTime - 10);
+    ytCmd(iframeRef.current, 'seekTo', [newTime, true]);
+    setCurrentTime(newTime);
+  }, [currentTime]);
+
+  const handleForward = useCallback(() => {
+    const newTime = Math.min(duration, currentTime + 10);
+    ytCmd(iframeRef.current, 'seekTo', [newTime, true]);
+    setCurrentTime(newTime);
+  }, [currentTime, duration]);
+
   const handleVolumeChange = useCallback((val) => {
     ytCmd(iframeRef.current, 'setVolume', [Math.round(val * 100)]);
     setVolume(val);
@@ -285,14 +297,14 @@ const VideoPlayerPage = () => {
                   allowFullScreen
                   onLoad={handleIframeLoad}
                 ></iframe>
-                
+
                 {/* Custom Pause Screen Overlay to completely hide YouTube's related videos grid */}
                 {!isPlaying && (
                   <div className="custom-pause-screen fade-in">
-                    <img 
+                    <img
                       src={video.thumbnail || (video.youtubeId ? `https://img.youtube.com/vi/${video.youtubeId}/hqdefault.jpg` : '/default-thumbnail.jpg')}
-                      className="pause-bg-thumb" 
-                      alt="pause background" 
+                      className="pause-bg-thumb"
+                      alt="pause background"
                     />
                     <div className="pause-overlay-content">
                       <button className="big-resume-btn" onClick={handlePlayPause} aria-label="Resume Video">
@@ -323,6 +335,8 @@ const VideoPlayerPage = () => {
                   onVolumeChange={handleVolumeChange}
                   onMuteToggle={handleMuteToggle}
                   onFullscreen={handleFullscreen}
+                  onRewind={handleRewind}
+                  onForward={handleForward}
                 />
               </>
             )}

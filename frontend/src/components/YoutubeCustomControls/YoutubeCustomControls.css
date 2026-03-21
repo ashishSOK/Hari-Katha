@@ -26,7 +26,53 @@
 /* On mobile: hide when playing, show when paused (via .is-paused above) */
 @media (max-width: 768px) {
   .ycc-bar {
-    padding: 12px 16px 4px; /* push lower on mobile */
+    padding: 20px 14px 10px; /* more breathing room on small screens */
+    background: linear-gradient(to top, rgba(0,0,0,0.92) 0%, rgba(0,0,0,0.4) 70%, transparent 100%);
+  }
+
+  /* Touch-friendly seek bar */
+  .ycc-seekbar-track {
+    height: 5px;
+  }
+
+  .ycc-seekbar-track:hover {
+    height: 7px;
+  }
+
+  /* Bigger hit targets for buttons */
+  .ycc-btn {
+    padding: 7px;
+  }
+
+  .ycc-btn svg {
+    width: 26px;
+    height: 26px;
+  }
+
+  .ycc-playpause svg {
+    width: 30px;
+    height: 30px;
+  }
+
+  /* Larger time text */
+  .ycc-time {
+    font-size: 0.82rem;
+    letter-spacing: 0.03em;
+  }
+
+  /* Hide volume slider on mobile — device volume controls are used */
+  .ycc-volume-group .ycc-volume-slider {
+    display: none;
+  }
+
+  /* Spread buttons more comfortably */
+  .ycc-left,
+  .ycc-right {
+    gap: 10px;
+  }
+
+  .ycc-bottom-row {
+    gap: 12px;
   }
 }
 

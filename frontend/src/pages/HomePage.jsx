@@ -31,20 +31,21 @@ const HomePage = () => {
   const [activeCategory, setActiveCategory] = useState('All');
   const [loading, setLoading] = useState(true);
 
-  const [assigningStr, setAssigningStr] = useState('');
-  const [assignMessage, setAssignMessage] = useState('');
-
   const userInfoStr = localStorage.getItem('userInfo');
   const userInfo = userInfoStr ? JSON.parse(userInfoStr) : null;
+
+  // For members, only show videos from their assigned mentor
+  const mentorFilter = userInfo?.role === 'member' && userInfo?.mentorId
+    ? `&mentorId=${userInfo.mentorId}`
+    : '';
 
   useEffect(() => {
     const fetchVideos = async () => {
       setLoading(true);
       try {
         const apiUrl = import.meta.env.VITE_API_URL || 'http://localhost:5001';
-        const url = activeCategory === 'All'
-          ? `${apiUrl}/api/videos`
-          : `${apiUrl}/api/videos?category=${activeCategory}`;
+        const categoryParam = activeCategory === 'All' ? '' : `category=${activeCategory}`;
+        const url = `${apiUrl}/api/videos?${categoryParam}${mentorFilter}`;
         const { data } = await axios.get(url);
         setVideos(data);
       } catch (error) {
@@ -70,48 +71,12 @@ const HomePage = () => {
     fetchCategories();
   }, []);
 
-  const handleAssignMentor = async (e) => {
-    e.preventDefault();
-    try {
-      const token = localStorage.getItem('token');
-      const apiUrl = import.meta.env.VITE_API_URL || 'http://localhost:5001';
-      await axios.post(`${apiUrl}/api/users/member/assign`, { mentorUsername: assigningStr }, {
-        headers: { Authorization: `Bearer ${token}` }
-      });
-      setAssignMessage('Mentor linked successfully!');
-
-      // Update local storage to reflect they now have a mentor
-      const updatedUser = { ...userInfo, mentorId: 'assigned' };
-      localStorage.setItem('userInfo', JSON.stringify(updatedUser));
-
-      setAssigningStr('');
-    } catch (err) {
-      setAssignMessage(err.response?.data?.message || 'Failed to assign mentor');
-    }
-  };
 
   return (
     <div className="homepage">
       <Navbar />
 
       {/* Mentor Assignment UI */}
-      {userInfo && userInfo.role === 'member' && !userInfo.mentorId && (
-        <div className="container mentor-assign-banner fade-in">
-          <p>Want to track your progress with a teacher? Assign a Mentor below!</p>
-          <form onSubmit={handleAssignMentor} className="assign-form">
-            <input
-              type="text"
-              placeholder="Mentor's Username"
-              value={assigningStr}
-              onChange={e => setAssigningStr(e.target.value)}
-              required
-            />
-            <button type="submit">Connect Mentor</button>
-          </form>
-          {assignMessage && <div className="assign-msg">{assignMessage}</div>}
-        </div>
-      )}
-
       {/* Daily Verse Banner */}
       <section className="banner-section">
         <div className="container banner-container fade-in">

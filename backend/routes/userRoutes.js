@@ -1,7 +1,10 @@
 const express = require('express');
 const router = express.Router();
-const { getWatchHistory, addToWatchHistory, getBookmarks, toggleBookmark, assignMentor, getMentorMembers, saveNote, getNote } = require('../controllers/userController');
+const { getMentors, getWatchHistory, addToWatchHistory, getBookmarks, toggleBookmark, assignMentor, getMentorMembers, saveNote, getNote } = require('../controllers/userController');
 const { protect } = require('../utils/authMiddleware');
+
+// Public route — no auth needed so signup page can fetch mentor list
+router.route('/mentors').get(getMentors);
 
 router.route('/history')
   .get(protect, getWatchHistory);

@@ -23,6 +23,8 @@ const YoutubeCustomControls = ({
   onVolumeChange,
   onMuteToggle,
   onFullscreen,
+  onRewind,
+  onForward,
 }) => {
   const progress = duration > 0 ? (currentTime / duration) * 100 : 0;
 
@@ -48,6 +50,13 @@ const YoutubeCustomControls = ({
       <div className="ycc-bottom-row">
         {/* Left side */}
         <div className="ycc-left">
+          {/* ← Rewind 10s */}
+          <button className="ycc-btn ycc-skip" onClick={onRewind} aria-label="Rewind 10 seconds">
+            <svg viewBox="0 0 24 24" fill="currentColor">
+              <path d="M11 18V6l-8.5 6 8.5 6zm.5-6l8.5 6V6l-8.5 6z"/>
+            </svg>
+          </button>
+
           {/* Play / Pause */}
           <button className="ycc-btn ycc-playpause" onClick={onPlayPause} aria-label={isPlaying ? 'Pause' : 'Play'}>
             {isPlaying ? (
@@ -55,6 +64,13 @@ const YoutubeCustomControls = ({
             ) : (
               <svg viewBox="0 0 24 24" fill="currentColor"><polygon points="5,3 19,12 5,21" /></svg>
             )}
+          </button>
+
+          {/* Forward 10s → */}
+          <button className="ycc-btn ycc-skip" onClick={onForward} aria-label="Forward 10 seconds">
+            <svg viewBox="0 0 24 24" fill="currentColor">
+              <path d="M4 18l8.5-6L4 6v12zm9-12v12l8.5-6L13 6z" />
+            </svg>
           </button>
 
           {/* Volume */}
